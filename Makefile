@@ -64,7 +64,7 @@ SRC_BONUS = 	ft_lstnew_bonus.c \
 
 OBJ = $(SRC:.c=.o)
 
-OBJ_BONUS = &(SRC_BONUS:.c=.o)
+OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@
@@ -75,14 +75,14 @@ $(NAME): $(OBJ)
 
 all: $(NAME)
 
-bonus: $(OBJ_BONUS)
+bonus: $(OBJ_BONUS) $(OBJ)
 	@ar -crs $(NAME) $(OBJ) $(OBJ_BONUS)
 
 norminette:
 	@norminette $(SRC) -R CheckForbiddenSourceHeader
 
 clean:
-	@rm -f $(OBJ) $(BONUS_OBJ)
+	@rm -f $(OBJ) $(OBJ_BONUS)
 	@echo "Arquivos .o limpos 🧴"
 
 fclean: clean
