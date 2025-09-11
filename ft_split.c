@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-
 static	unsigned int	words_counter(char const *s, char c)
 {
 	unsigned int	i;
@@ -32,14 +31,12 @@ static	unsigned int	words_counter(char const *s, char c)
 	return (i);
 }
 
-static	void	memory_cleaner(char **array, unsigned int j)
+static	char	**memory_cleaner(char **array, unsigned int j)
 {
-	while (j > 0)
-	{
-		j--;
+	while (j-- > 0)
 		free(array[j]);
-	}
 	free(array);
+	return (NULL);
 }
 
 static	char	**set_array(char **array, char const *s, char c)
@@ -61,26 +58,24 @@ static	char	**set_array(char **array, char const *s, char c)
 				i++;
 			array[j] = ft_substr(s, start, (i - start));
 			if (!array[j])
-				return (memory_cleaner(array, j), NULL);
+				return (memory_cleaner(array, j));
 			j++;
 		}
 	}
-	array[j] = NULL;
 	return (array);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**array;
+	char			**array;
+	unsigned int	words;
 
 	if (!s)
 		return (NULL);
-	array = malloc((words_counter(s, c) + 1) * sizeof(char *));
+	words = words_counter(s, c);
+	array = ft_calloc(words + 1, sizeof(char *));
 	if (!array)
 		return (NULL);
-	else
-		array = set_array(array, s, c);
-	if (array == NULL)
-		return (NULL);
-	return (array);
+	return (set_array(array, s, c));
 }
+
