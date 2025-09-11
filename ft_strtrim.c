@@ -12,61 +12,25 @@
 
 #include "libft.h"
 
-#include <string.h>
-#include <stdlib.h>
-
-static	size_t	char_verification(char c, char const *set)
-{
-	size_t	i;
-
-	i = 0;
-	while (set[i])
-	{
-		if (c == set[i])
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static	size_t	start_index(char const *s1, char const *set)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i] && char_verification(s1[i], set) == 1)
-		i++;
-	return (i);
-}
-
-static	size_t	end_index(char const *s1, size_t i, char const *set)
-{
-	while (i > 0 && char_verification(s1[i], set) == 1)
-		i--;
-	return (i);
-}
-
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*s2;
-	size_t	s1_len;
-	size_t	s2_len;
 	size_t	start;
 	size_t	end;
+	size_t	i;
 
-	if (!s1 || !set)
+	if (!s1)
 		return (NULL);
-	s1_len = ft_strlen(s1);
-	start = start_index(s1, set);
-	end = end_index(s1, (s1_len - 1), set);
-	if (start > end)
-		s2_len = 0;
-	else
-		s2_len = (end - start) + 1;
-	s2 = malloc(s2_len + 1);
-	if (!s2)
-		return (NULL);
-	ft_memcpy(s2, &s1[start], s2_len);
-	s2[s2_len] = '\0';
-	return (s2);
+	if (!set)
+		return (ft_strdup(s1));
+	i = 0;
+	while (s1[i] && ft_strchr(set, s1[i]) != NULL)
+		i++;
+	start = i;
+	i = ft_strlen(s1);
+	while (i > 0 && ft_strchr(set, s1[i - 1]) != NULL)
+		i--;
+	end = i - 1;
+	if (start >= end)
+		return (ft_strdup(""));
+	return (ft_substr(s1, start, end - start + 1));
 }

@@ -12,8 +12,6 @@
 
 #include "libft.h"
 
-#include <string.h>
-#include <stdlib.h>
 
 static	unsigned int	words_counter(char const *s, char c)
 {

@@ -12,77 +12,61 @@
 
 #include "libft.h"
 
-#include <string.h>
-#include <stdlib.h>
-
-static	int	buffer_size(int n)
-{
-	int	i;
-
-	i = 0;
-	if (n < 0)
-	{
-		n = -n;
-		i++;
-	}
-	while (n > 9)
-	{
-		n = n / 10;
-		i++;
-	}
-	return (i + 1);
-}
-
-static	char	*set_nbr(char *str, int n, int buffer)
-{
-	while (n > 9)
-	{
-		str[buffer] = (n % 10) + '0';
-		n = n / 10;
-		buffer--;
-	}
-	str[buffer] = n + '0';
-	return (str);
-}
-
-static	char	*set_str(char *str, int n, int buffer)
+static	char	*set_str(char *str, long nl, long buffer)
 {
 	str[buffer] = '\0';
 	buffer--;
-	if (n == 0)
+	if (nl == 0)
 	{
 		str[buffer] = '0';
 		return (str);
 	}
-	if (n == -2147483648)
+	if (nl < 0)
 	{
-		str[buffer] = '8';
-		n = -214748364;
-		buffer--;
-	}
-	if (n < 0)
-	{
-		n = -n;
+		nl = -nl;
 		str[0] = '-';
 	}
-	str = set_nbr(str, n, buffer);
+	while (nl > 9)
+	{
+		str[buffer] = (nl % 10) + '0';
+		nl = nl / 10;
+		buffer--;
+	}
+	str[buffer] = nl + '0';
 	return (str);
+}
+
+static	long	buffer_size(long nl)
+{
+	long	i;
+
+	i = 0;
+	if (nl < 0)
+	{
+		nl = -nl;
+		i++;
+	}
+	while (nl > 0)
+	{
+		nl = nl / 10;
+		i++;
+	}
+	return (i);
 }
 
 char	*ft_itoa(int n)
 {
+	long	nl;
 	char	*str;
-	int		buffer;
+	long	buffer;
 
-	if (n == 0)
+	nl = (long)n;
+	if (nl == 0)
 		buffer = 1;
-	else if (n == -2147483648)
-		buffer = 11;
 	else
-		buffer = buffer_size(n);
+		buffer = buffer_size(nl);
 	str = malloc(buffer + 1);
 	if (!str)
 		return (NULL);
-	str = set_str(str, n, buffer);
-	return (str);
+	return (set_str(str, nl, buffer));
 }
