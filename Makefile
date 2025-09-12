@@ -79,7 +79,7 @@ bonus: $(OBJ_BONUS) $(OBJ)
 	@ar -crs $(NAME) $(OBJ) $(OBJ_BONUS)
 
 norminette:
-	@norminette $(SRC) -R CheckForbiddenSourceHeader
+	@norminette $(SRC) $(SRC_BONUS) -R CheckForbiddenSourceHeader
 
 clean:
 	@rm -f $(OBJ) $(OBJ_BONUS)

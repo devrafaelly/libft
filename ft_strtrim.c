@@ -26,11 +26,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (s1[i] && ft_strchr(set, s1[i]) != NULL)
 		i++;
 	start = i;
+	if (!s1[start])
+		return (ft_strdup(""));
 	i = ft_strlen(s1);
 	while (i > 0 && ft_strchr(set, s1[i - 1]) != NULL)
 		i--;
 	end = i - 1;
-	if (start >= end)
-		return (ft_strdup(""));
 	return (ft_substr(s1, start, end - start + 1));
 }
