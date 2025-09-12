@@ -15,25 +15,22 @@
 void	ft_putnbr_fd(int n, int fd)
 {
 	char	res;
+	long	nb;
 
-	if (n == -2147483648)
+	nb = n;
+	if (nb < 0)
 	{
-		ft_putstr_fd("-2147483648", fd);
-		return ;
-	}
-	if (n < 0)
-	{
-		n *= -1;
+		nb *= -1;
 		ft_putchar_fd('-', fd);
 	}
-	if (n > 9)
+	if (nb > 9)
 	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
+		ft_putnbr_fd(nb / 10, fd);
+		ft_putnbr_fd(nb % 10, fd);
 	}
 	else
 	{
-		res = n + '0';
+		res = nb + '0';
 		ft_putchar_fd(res, fd);
 	}
 }
