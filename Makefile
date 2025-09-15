@@ -12,62 +12,72 @@
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = libft.a
 
-SRC = 	ft_isalnum.c \
-		ft_isalpha.c \
-		ft_isascii.c \
-		ft_isdigit.c \
-		ft_isprint.c \
-		ft_strlen.c \
-		ft_toupper.c \
-		ft_tolower.c \
-		ft_atoi.c \
-		ft_strncmp.c \
-		ft_strlcpy.c \
-		ft_strlcat.c \
-		ft_strnstr.c \
-		ft_strchr.c \
-		ft_strrchr.c \
-		ft_bzero.c \
-		ft_memset.c \
-		ft_memcmp.c \
-		ft_memchr.c \
-		ft_memmove.c \
-		ft_memcpy.c \
-		ft_strdup.c \
-		ft_calloc.c \
-		ft_putchar_fd.c \
-		ft_putstr_fd.c \
-		ft_putendl_fd.c \
-		ft_putnbr_fd.c \
-		ft_substr.c \
-		ft_strjoin.c \
-		ft_strmapi.c \
-		ft_striteri.c \
-		ft_itoa.c \
-		ft_strtrim.c \
-		ft_split.c \
+SRCS_BASIC = 	src/basic/ft_isalnum.c \
+		src/basic/ft_isalpha.c \
+		src/basic/ft_isascii.c \
+		src/basic/ft_isdigit.c \
+		src/basic/ft_isprint.c \
+		src/basic/ft_strlen.c \
+		src/basic/ft_toupper.c \
+		src/basic/ft_tolower.c \
+		src/basic/ft_atoi.c \
+		src/basic/ft_strncmp.c \
+		src/basic/ft_strlcpy.c \
+		src/basic/ft_strlcat.c \
+		src/basic/ft_strnstr.c \
+		src/basic/ft_strchr.c \
+		src/basic/ft_strrchr.c \
+		src/basic/ft_bzero.c \
+		src/basic/ft_memset.c \
+		src/basic/ft_memcmp.c \
+		src/basic/ft_memchr.c \
+		src/basic/ft_memmove.c \
+		src/basic/ft_memcpy.c \
+		src/basic/ft_strdup.c \
+		src/basic/ft_calloc.c \
+		src/basic/ft_putchar_fd.c \
+		src/basic/ft_putstr_fd.c \
+		src/basic/ft_putendl_fd.c \
+		src/basic/ft_putnbr_fd.c \
+		src/basic/ft_substr.c \
+		src/basic/ft_strjoin.c \
+		src/basic/ft_strmapi.c \
+		src/basic/ft_striteri.c \
+		src/basic/ft_itoa.c \
+		src/basic/ft_strtrim.c \
+		src/basic/ft_split.c \
+		src/basic/ft_lstnew_bonus.c \
+		src/basic/ft_lstadd_front_bonus.c \
+		src/basic/ft_lstsize_bonus.c \
+		src/basic/ft_lstlast_bonus.c \
+		src/basic/ft_lstadd_back_bonus.c \
+		src/basic/ft_lstdelone_bonus.c \
+		src/basic/ft_lstclear_bonus.c \
+		src/basic/ft_lstiter_bonus.c \
+		src/basic/ft_lstmap_bonus.c
 
+SRCS_PRINTF = 	src/printf/ft_printf.c \
+		src/printf/ft_conversion_specifier.c \
+		src/printf/ft_print_char.c \
+		src/printf/ft_print_str.c \
+		src/printf/ft_print_s_nbr.c \
+		src/printf/ft_print_u_nbr.c \
+		src/printf/ft_print_hexa.c \
+		src/printf/ft_print_hexa_long.c \
+		src/printf/ft_print_pointer.c
 
-SRC_BONUS = 	ft_lstnew_bonus.c \
-				ft_lstadd_front_bonus.c \
-				ft_lstsize_bonus.c \
-				ft_lstlast_bonus.c \
-				ft_lstadd_back_bonus.c \
-				ft_lstdelone_bonus.c \
-				ft_lstclear_bonus.c \
-				ft_lstiter_bonus.c \
-				ft_lstmap_bonus.c
+SRCS_GNL = 	src/gnl/get_next_line.c
 
-OBJ = $(SRC:.c=.o)
+SRCS = $(SRCS_BASIC) $(SRCS_PRINTF) $(SRCS_GNL)
 
-OBJ_BONUS = $(SRC_BONUS:.c=.o)
+OBJ = $(SRCS:.c=.o)
 
 %.o: %.c
-	@$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$@ ✔️"
 
 $(NAME): $(OBJ)
@@ -75,14 +85,11 @@ $(NAME): $(OBJ)
 
 all: $(NAME)
 
-bonus: $(OBJ_BONUS) $(OBJ)
-	@ar -crs $(NAME) $(OBJ) $(OBJ_BONUS)
-
 norminette:
-	@norminette $(SRC) $(SRC_BONUS) -R CheckForbiddenSourceHeader
+	@norminette $(SRCS) -R CheckForbiddenSourceHeader
 
 clean:
-	@rm -f $(OBJ) $(OBJ_BONUS)
+	@rm -f $(OBJ)
 	@echo "Arquivos .o limpos 🧴"
 
 fclean: clean
