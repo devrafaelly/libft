@@ -1,182 +1,175 @@
-# Libft
+# Libft - Unified C Library
 
-A custom C library that reimplements standard library functions and provides additional utility functions.
+A complete implementation of the C standard library, expanded with printf functionality and file reading capabilities. This project consolidates the functionalities of **libft**, **ft_printf**, and **get_next_line** into a single robust and efficient library.
 
-## Table of Contents
+## About the Project
 
-- [Overview](#overview)
-- [Functions](#functions)
-  - [Libc Functions](#libc-functions)
-  - [Additional Functions](#additional-functions)
-- [Compilation](#compilation)
-- [Usage](#usage)
-- [Testing](#testing)
+**Libft** is a custom C library that reimplements essential functions from the standard library, adding extra functionalities like output formatting and line-by-line file reading. Developed following the strict standards of **42 School**.
 
-## Overview
+## Project Structure
 
-Libft is a custom C library project that recreates many of the standard C library functions from scratch. This project helps develop a deeper understanding of these fundamental functions and serves as a foundation for future C projects.
-
-The library is divided into two main categories:
-- **Libc functions**: Reimplementations of standard C library functions
-- **Additional functions**: Custom utility functions that extend functionality
-
-## Functions
-
-### Libc Functions
-
-**Character Classification and Conversion**
-- `ft_isalpha` - Check if character is alphabetic
-- `ft_isdigit` - Check if character is numeric
-- `ft_isalnum` - Check if character is alphanumeric
-- `ft_isascii` - Check if character is ASCII
-- `ft_isprint` - Check if character is printable
-- `ft_toupper` - Convert character to uppercase
-- `ft_tolower` - Convert character to lowercase
-
-**String Functions**
-- `ft_strlen` - Calculate string length
-- `ft_strchr` - Locate first occurrence of character in string
-- `ft_strrchr` - Locate last occurrence of character in string
-- `ft_strncmp` - Compare strings up to n characters
-- `ft_strnstr` - Locate substring in string with length limit
-- `ft_strlcpy` - Copy string with size limit
-- `ft_strlcat` - Concatenate strings with size limit
-
-**Memory Functions**
-- `ft_memset` - Fill memory with constant byte
-- `ft_memcpy` - Copy memory area
-- `ft_memmove` - Copy memory area (handles overlap)
-- `ft_memchr` - Scan memory for character
-- `ft_memcmp` - Compare memory areas
-- `ft_bzero` - Zero memory area
-- `ft_calloc` - Allocate and zero memory
-
-**String Conversion**
-- `ft_atoi` - Convert string to integer
-- `ft_strdup` - Duplicate string
-
-### Additional Functions
-
-**String Manipulation**
-- `ft_substr` - Extract substring
-- `ft_strjoin` - Concatenate two strings
-- `ft_strtrim` - Trim characters from beginning and end
-- `ft_split` - Split string by delimiter
-- `ft_itoa` - Convert integer to string
-
-**String Iteration**
-- `ft_strmapi` - Apply function to each character (with index)
-- `ft_striteri` - Apply function to each character in-place (with index)
-
-**File Descriptor Functions**
-- `ft_putchar_fd` - Output character to file descriptor
-- `ft_putstr_fd` - Output string to file descriptor
-- `ft_putendl_fd` - Output string with newline to file descriptor
-- `ft_putnbr_fd` - Output integer to file descriptor
-
-### Bonus Functions (Linked Lists)
-
-**List Structure**
-```c
-typedef struct s_list
-{
-    void            *content;
-    struct s_list   *next;
-}                   t_list;
 ```
-**List Operations**
-- `ft_lstnew` - Create new list element
-- `ft_lstadd_front` - Add element at beginning of list
-- `ft_lstsize` - Count elements in list
-- `ft_lstlast` - Get last element of list
-- `ft_lstadd_back` - Add element at end of list
-- `ft_lstdelone` - Delete single list element
-- `ft_lstclear` - Delete and free entire list
-- `ft_lstiter` - Apply function to each list element
-- `ft_lstmap` - Create new list by applying function to each element
-
-## Compilation
-
-The library uses a Makefile for compilation with the following rules:
-
-```bash
-make        # Compile the library (creates libft.a)
-make clean  # Remove object files
-make fclean # Remove object files and library
-make re     # Recompile everything
+libft/
+├── Makefile
+├── libft.h
+├── README.md
+└── src/
+    ├── basic/          # Original libft functions
+    │   ├── ft_*.c
+    │   └── ft_*_bonus.c
+    ├── printf/         # ft_printf formatting system
+    │   ├── ft_printf.c
+    │   └── ft_*_utils.c
+    └── gnl/           # Get Next Line
+        └── get_next_line_bonus.c
 ```
 
-Compilation flags used:
-- `-Wall -Wextra -Werror`
-- Compiler: cc
+## 🔧 Compilation and Usage
 
-## Usage
-
-1. Clone the repository and compile the library:
+### Compile the library:
 ```bash
-git clone <repository-url> libft
-cd libft
 make
 ```
 
-2. Include the header in your C files:
-```c
-#include "libft.h"
-```
-
-3. Compile your project with the library:
+### Clean object files:
 ```bash
-cc -Wall -Wextra -Werror your_file.c -L. -lft
+make clean
 ```
 
-### Example Usage
+### Clean everything:
+```bash
+make fclean
+```
 
+### Recompile:
+```bash
+make re
+```
+
+### Check norminette:
+```bash
+make norminette
+```
+
+### Use in your project:
 ```c
 #include "libft.h"
-#include <stdio.h>
 
 int main(void)
 {
-    char *str = "  Hello, World!  ";
-    char *trimmed = ft_strtrim(str, " ");
+    // Use libft functions
+    char **words = ft_split("Hello World", ' ');
     
-    printf("Original: '%s'\n", str);
-    printf("Trimmed: '%s'\n", trimmed);
+    // Use ft_printf
+    ft_printf("First word: %s\n", words[0]);
     
-    free(trimmed);
+    // Use get_next_line
+    int fd = open("file.txt", O_RDONLY);
+    char *line = get_next_line(fd);
+    
     return (0);
 }
 ```
 
-## Testing
+## Available Functions
 
-The library has been tested with various test cases including:
-- Edge cases (NULL pointers, empty strings, etc.)
-- Memory leak testing
-- Comparison with original libc functions
-- Boundary conditions
+### Character Functions
+- `ft_isalpha`, `ft_isdigit`, `ft_isalnum`, `ft_isascii`, `ft_isprint`
+- `ft_toupper`, `ft_tolower`
 
-### Memory Management
+### String Functions
+- `ft_strlen`, `ft_strlcpy`, `ft_strlcat`, `ft_strncmp`
+- `ft_strchr`, `ft_strrchr`, `ft_strnstr`, `ft_strdup`
+- `ft_substr`, `ft_strjoin`, `ft_strtrim`, `ft_split`
+- `ft_strmapi`, `ft_striteri`
 
-Functions that allocate memory (`ft_strdup`, `ft_substr`, `ft_strjoin`, `ft_strtrim`, `ft_split`, `ft_itoa`, `ft_calloc`, `ft_lstnew`, `ft_lstmap`) return `NULL` on allocation failure. Always check return values and free allocated memory to prevent memory leaks.
+### Memory Functions
+- `ft_memset`, `ft_bzero`, `ft_memcpy`, `ft_memmove`
+- `ft_memchr`, `ft_memcmp`, `ft_calloc`
 
-For bonus linked list functions:
-- Use `ft_lstclear` to properly free entire lists
-- Provide appropriate deletion functions to `ft_lstdelone` and `ft_lstclear`
-- `ft_lstmap` creates a new list - remember to free both original and new lists if needed
+### Conversion Functions
+- `ft_atoi`, `ft_itoa`
 
-### Function Behavior
+### File Descriptor Functions
+- `ft_putchar_fd`, `ft_putstr_fd`, `ft_putendl_fd`, `ft_putnbr_fd`
 
-- Functions follow the same behavior as their libc counterparts
-- Error handling is consistent with standard library functions
-- No global variables are used
-- All functions are properly documented in the header file
+### Linked List Functions (Bonus)
+- `ft_lstnew`, `ft_lstadd_front`, `ft_lstadd_back`
+- `ft_lstsize`, `ft_lstlast`, `ft_lstdelone`, `ft_lstclear`
+- `ft_lstiter`, `ft_lstmap`
 
-## Notes
+### Printf Functions
+- `ft_printf` - Supports: `%c`, `%s`, `%p`, `%d`, `%i`, `%u`, `%x`, `%X`, `%%`
 
-This library serves as a foundation for other 42 School projects and demonstrates proficiency in:
-- C programming fundamentals
-- Memory management
-- String manipulation
-- Algorithm implementation
-- Code organization and documentation
+### Get Next Line
+- `get_next_line` - Reads files line by line with support for multiple file descriptors
+
+## Configuration
+
+### Buffer Size (Get Next Line)
+You can customize the buffer size during compilation:
+```bash
+make CFLAGS="-Wall -Wextra -Werror -D BUFFER_SIZE=42"
+```
+
+## Usage Examples
+
+### String Manipulation
+```c
+char *str = ft_strjoin("Hello, ", "World!");
+char **words = ft_split(str, ' ');
+char *trimmed = ft_strtrim("   spaces   ", " ");
+```
+
+### Output Formatting
+```c
+ft_printf("Number: %d, Hex: %x, String: %s\n", 42, 255, "Hello");
+ft_printf("Pointer: %p, Char: %c\n", &str, 'A');
+```
+
+### File Reading
+```c
+int fd = open("file.txt", O_RDONLY);
+char *line;
+
+while ((line = get_next_line(fd)))
+{
+    ft_printf("Line: %s", line);
+    free(line);
+}
+close(fd);
+```
+
+## 42 School Standards
+
+This project follows all 42 School coding standards:
+- ✅ **Norminette** compliant
+- ✅ No memory leaks
+- ✅ Proper error handling
+- ✅ Forbidden functions avoided
+- ✅ 25-line function limit
+
+## Features
+
+- **Unified Library**: Single `.a` file with all functionalities
+- **Memory Safe**: Proper allocation and deallocation
+- **Multiple FD Support**: get_next_line handles multiple file descriptors
+- **Optimized**: Efficient algorithms and memory usage
+- **Modular**: Clean separation between different functionalities
+
+## Performance
+
+- **ft_split**: O(n) time complexity with optimized memory management
+- **get_next_line**: Configurable buffer size for optimal I/O performance  
+- **ft_printf**: Fast formatting without external dependencies
+
+## Technical Details
+
+- **Language**: C (C99 standard)
+- **Compiler**: gcc with `-Wall -Wextra -Werror`
+- **Archive**: Created with `ar rcs`
+- **Dependencies**: Only system calls (`write`, `read`, `malloc`, `free`)
+
+---
+
+**Made with ❤️ at 42 School**
