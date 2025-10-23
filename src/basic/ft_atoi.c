@@ -19,24 +19,20 @@ int	ft_atoi(const char *nptr)
 
 	signal = 1;
 	res = 0;
-	while (*nptr)
+	while (*nptr == 32 || (*nptr >= 9 && *nptr <= 13))
 	{
-		while (*nptr == 32 || (*nptr >= 9 && *nptr <= 13))
-		{
-			nptr++;
-		}
-		if (*nptr == '-' || *nptr == '+')
-		{
-			if (*nptr == '-')
-				signal *= -1;
-			nptr++;
-		}
-		while (*nptr >= '0' && *nptr <= '9')
-		{
-			res = res * 10 + (*nptr - '0');
-			nptr++;
-		}
-		return (res * signal);
+		nptr++;
 	}
-	return (0);
+	if (*nptr == '-' || *nptr == '+')
+	{
+		if (*nptr == '-')
+			signal *= -1;
+		nptr++;
+	}
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		res = res * 10 + (*nptr - '0');
+		nptr++;
+	}
+	return (res * signal);
 }
