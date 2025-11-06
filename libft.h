@@ -6,7 +6,7 @@
 /*   By: rafaoliv <rafaoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 11:50:47 by rafaoliv          #+#    #+#             */
-/*   Updated: 2025/09/12 18:00:43 by rafaoliv         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:37:09 by rafaoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,14 @@ int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		ft_isfloat(char *c);
 int		ft_atoi(const char *nptr);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
+
+double	ft_atof(const char *nptr);
+
+long	ft_atol(const char *nptr);
 
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
@@ -76,7 +81,15 @@ t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-int	ft_printf(const char *format, ...);
+int		ft_printf(const char *format, ...);
+int		ft_conversion_specifier(char c, va_list ap);
+int		ft_print_char(int c);
+int		ft_print_str(char *str);
+int		ft_print_s_nbr(int n);
+int		ft_print_u_nbr(unsigned int n);
+int		ft_print_hexa(unsigned int n, char c);
+int		ft_print_hexa_long(unsigned long n);
+int		ft_print_pointer(void *ptr);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
